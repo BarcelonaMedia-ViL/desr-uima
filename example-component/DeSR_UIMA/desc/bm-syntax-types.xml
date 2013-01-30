@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <name>bm-morpho-syntax-types</name>
+  <description>The type system contains types for the annotation of
+  morpho-syntactic and syntactic analysis (constituncy-based and
+  dependecy-based parsing) results.</description>
+  <version>2.1</version>
+  <vendor/>
+  <imports>
+    <import location="bm-basic-types.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.Sentence</name>
+      <description>This annotation marks the span of a sentence.</description>
+      <supertypeName>org.barcelonamedia.uima.ts.Annotation</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.Token</name>
+      <description>Token annotation marks the span of a token and takes all
+    additional annotations that are on the token level, including
+    Part-of-Speech information, lemma, stemmed form, grammatical
+    features such as gender, number and orthographical information;
+    furthemore, Token includes the information about dependency
+    relations to other tokens (see correspondent annotation types for
+    further infromation).</description>
+      <supertypeName>org.barcelonamedia.uima.ts.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>lemma</name>
+          <description>the lemma information, O</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>posTag</name>
+          <description>List contains part-of-speech tags of different
+      part-of-speech tagsets (see also POSTag and subtypes), O</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>value</name>
+          <description>ALternate string value for Token</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>stemmedForm</name>
+          <description>Contains the stemmed form of token (see StemmedForm),
+      O</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>CPos1</name>
+          <description>Short version of posTAG</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>CPos2</name>
+          <description>Another short version of posTAG</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>feats</name>
+          <description>Contains grammatical features correspondent to the
+      part-of-speech tag of current token (see GrammaticalFeats and
+      subtypes), O</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>depRel</name>
+          <description>Contains a list of syntactical dependencies, see
+      DependencyRelation, O</description>
+          <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+          <elementType>org.barcelonamedia.uima.ts.DependencyRelation</elementType>
+          <multipleReferencesAllowed>true</multipleReferencesAllowed>
+        </featureDescription>
+      </features>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.Chunk</name>
+      <description>Results of the chunking (shallow Parsing (see Abney))</description>
+      <supertypeName>org.barcelonamedia.uima.ts.Annotation</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkNP</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkVP</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkPP</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkADJP</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkADVP</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.ChunkLST</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.Chunk</supertypeName>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.DeSR</name>
+      <description/>
+      <supertypeName>org.barcelonamedia.uima.ts.DependencyRelation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>index</name>
+          <description/>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>head_index</name>
+          <description/>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.DependencyRelation</name>
+      <description>Syntactic dependency relation annotation, see
+      subtypes</description>
+      <supertypeName>org.barcelonamedia.uima.ts.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>head</name>
+          <description>Head (Token) of the analyzed dependency relation, C</description>
+          <rangeTypeName>org.barcelonamedia.uima.ts.Token</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>index</name>
+          <description/>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>head_index</name>
+          <description/>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>projective</name>
+          <description>The dependency relations can be projective or not,
+        C</description>
+          <rangeTypeName>uima.cas.Boolean</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>label</name>
+          <description>The label of the relation (e.g. SBJ, OBJ, DEP)</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+    <typeDescription>
+      <name>org.barcelonamedia.uima.ts.Paragraph</name>
+      <description>Span of paragraph annotation, grouping one sentence or more</description>
+      <supertypeName>org.barcelonamedia.uima.ts.Annotation</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

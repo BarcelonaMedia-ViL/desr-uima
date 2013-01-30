@@ -1,0 +1,376 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.barcelonamedia.uima</groupId>
+	<artifactId>DeSR_UIMA</artifactId>
+	<name>DeSR-ES</name>
+	<version>0.1</version>
+	<description>Example component for DeSR-UIMA integration</description>
+	<scm>
+		<url>https://github.com/BarcelonaMedia-ViL/desr-uima</url>
+		<developerConnection>scm:git:git://github.com/BarcelonaMedia-ViL/desr-uima.git</developerConnection>
+	</scm>
+	<organization>
+		<name>Barcelona Media</name>
+		<url>http://www.barcelonamedia.org/</url>
+	</organization>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-core</artifactId>
+			<version>2.4.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- set Java 1.6 as the source and target of compilation -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2-beta-5</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<Project-Title>Barcelonamedia Apache UIMA Components</Project-Title>
+								<Implementation-Title>${project.name}</Implementation-Title>
+								<Implementation-Version>${project.version}</Implementation-Version>
+								<Implementation-Vendor>Barcelona Media</Implementation-Vendor>
+								<Implementation-Url>${project.url}</Implementation-Url>
+								<Build-Date>${buildNumber}</Build-Date>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<dependencies>
+						<!-- put this dependency first -->
+						<!-- otherwise you get ant 1.5 from ant-contrib -->
+						<dependency>
+							<groupId>org.apache.ant</groupId>
+							<artifactId>ant</artifactId>
+							<version>1.7.1</version>
+							<scope>runtime</scope>
+						</dependency>
+						<dependency> <!-- for ant extension supporting "if" -->
+							<groupId>ant-contrib</groupId>
+							<artifactId>ant-contrib</artifactId>
+							<version>1.0b3</version>
+							<scope>runtime</scope>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.7</version>
+					<configuration>
+						<downloadSources>true</downloadSources>
+					</configuration>
+				</plugin>
+
+				<!-- this is in plugin management, rather than in plugins, to make this 
+					pom "buildable" so it can be installed. Otherwise, build of this pom fails 
+					trying to execute the pear packager -->
+				<plugin>
+					<groupId>org.apache.uima</groupId>
+					<artifactId>PearPackagingMavenPlugin</artifactId>
+					<version>2.3.1</version>
+					<extensions>true</extensions>
+					<executions>
+						<execution>
+							<id>buildPear</id>
+							<goals>
+								<goal>package</goal>
+							</goals>
+							<!-- needs to run after the jar is built before the assembly is done -->
+							<phase>package</phase>
+							<configuration>
+								<mainComponentDesc>desc/${project.artifactId}.xml</mainComponentDesc>
+								<componentId>${project.artifactId}</componentId>
+								<datapath>$main_root/resources</datapath>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>buildnumber-maven-plugin</artifactId>
+					<version>1.2</version>
+					<configuration>
+						<format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+						<items>
+							<item>timestamp</item>
+						</items>
+					</configuration>
+				</plugin>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>[2.1,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>false</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.uima</groupId>
+				<artifactId>PearPackagingMavenPlugin</artifactId>
+				<version>2.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<skipTests>false</skipTests>
+				</configuration>
+			</plugin>
+			<!-- something to get the timestamp -->
+			<!-- this plugin sets the output string into the variable buildNumber -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<inherited>true</inherited>
+				<executions>
+					<!-- Copy the dependencies to the target/assembly-bin folder for the 
+						PEAR to copy -->
+					<execution>
+						<id>copy dependencies to lib</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<phase>process-resources</phase>
+						<configuration>
+							<outputDirectory>target/assembly-bin/${project.artifactId}/lib</outputDirectory>
+							<includeScope>runtime</includeScope>
+							<excludeScope>test</excludeScope>
+							<overwrite>true</overwrite>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<inherited>true</inherited>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<id>copy standard resources to assembly-bin</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>process-resources</phase>  <!-- required -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/assembly-bin/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>.</directory>
+									<includes>
+										<include>desc/**</include>
+										<include>resources/**</include>
+										<include>lib/**</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy standard target jar to assembly-bin</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>pre-integration-test</phase>  <!-- a phase after jar -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/assembly-bin/${project.artifactId}/lib</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}</directory>
+									<includes>
+										<include>*.jar</include>
+									</includes>
+									<excludes>
+										<exclude>*-sources.jar</exclude>
+									</excludes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy standard target pear and docs to assembly-bin</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>pre-integration-test</phase>  <!-- a phase after pear packager -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/assembly-bin/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}</directory>
+									<includes>
+										<include>*.pear</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy standard resources to assembly-src</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>process-resources</phase>  <!-- required -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/assembly-src/${project.artifactId}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>.</directory>
+									<includes>
+										<include>*.xml</include>  <!-- pom.xml, builders for some things -->
+										<include>desc/**</include>
+										<include>metadata/**</include>  <!-- pear naming conventions -->
+										<include>resources/**</include>
+										<include>lib/**</include>
+
+										<include>src/**</include>
+										<include>*.properties</include> <!-- tagger.properties, etc -->
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<!-- add the contents of desc if it exists to the jar. This puts the 
+						WhitespaceTokenizer.xml file into the Jar and makes it easier for users to 
+						run this, without installing a pear. The Tagger project uses this technique, 
+						for instance -->
+					<execution>
+						<id>copy desc so its contents can be found in Jar</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>process-resources</phase>  <!-- required -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>desc</directory>
+									<includes>
+										<include>**</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<!-- copy the bin/artifactId/lib to the pearPackaging/lib -->
+					<execution>
+						<id>copy bin/artifactId/lib to target/pearPackaging</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>compile</phase>
+						<!-- run after dependency plugin runs before pear packager runs -->
+						<configuration>
+							<outputDirectory>${project.build.directory}/pearPackaging</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/assembly-bin/${project.artifactId}</directory>
+									<includes>
+										<include>lib/**</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

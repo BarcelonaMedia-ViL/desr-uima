@@ -1,0 +1,15 @@
+1	La	el	d	da	gen=f|num=s	2	spec	_	_
+2	diligencia	diligencia	n	nc	gen=f|num=s	3	suj	_	_
+3	es	ser	v	vs	gen=c|num=s|per=3|mod=i|ten=p	0	sentence	_	_
+4	madre	madre	n	nc	gen=f|num=s	3	atr	_	_
+5	de	de	s	sp	gen=c|num=c|for=s	4	sp	_	_
+6	la	el	d	da	gen=f|num=s	8	spec	_	_
+7	buena	bueno	a	aq	gen=f|num=s	8	s.a	_	_
+8	ventura	ventura	n	nc	gen=f|num=s	5	sn	_	_
+9	y	y	c	cc	_	3	coord	_	_
+10	la	el	d	da	gen=f|num=s	11	spec	_	_
+11	pereza	pereza	n	nc	gen=f|num=s	12	suj	_	_
+12	es	ser	v	vs	gen=c|num=s|per=3|mod=i|ten=p	3	S	_	_
+13	su	su	d	dp	gen=c|num=s|per=3	14	spec	_	_
+14	contrario	contrario	n	nc	gen=m|num=s	12	atr	_	_
+15	.	.	F	Fp	_	3	f	_	_

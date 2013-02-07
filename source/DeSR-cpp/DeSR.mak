@@ -22,10 +22,10 @@ TARGET_FILE=DeSR
 OBJS=DeSR.o 
 
 #Use this var to pass additional user-defined parameters to the compiler
-USER_CFLAGS= -I$(DESR_HOME)/src -l_desr -Bdynamic
+USER_CFLAGS= -I$(DESR_HOME)/src -ldesr -Bdynamic
 
 #Use this var to pass additional user-defined parameters to the linker
-USER_LINKFLAGS= -l_desr -Bdynamic
+USER_LINKFLAGS= -ldesr -Bdynamic
 
 # Set DEBUG=1 for a debug build (if not 1 a ship build will result)
 DEBUG=1

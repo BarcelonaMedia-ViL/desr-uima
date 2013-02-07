@@ -33,8 +33,10 @@
 #include "Parser.h"
 #include "Token.h"
 #include "Language.h"
+#include "TokenAttributes.h" 
 
 using namespace uima;
+using namespace Tanl;
 
 class DeSR : public Annotator{
 
